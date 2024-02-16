@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_agri_app/firebase_options.dart';
 import 'package:my_agri_app/login_module/login.dart';
 import 'package:my_agri_app/login_module/register.dart';
+import 'package:my_agri_app/personal_details/profile.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +24,7 @@ class MainPage extends StatelessWidget {
       routes: {
         '/': (context) => Register(),
         '/login':(context) => LoginPage(),
+        '/profile':(context) => PersonalDetails(),
       },
     );
   }
