@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_agri_app/firebase_options.dart';
 import 'package:my_agri_app/login_module/login.dart';
 import 'package:my_agri_app/login_module/register.dart';
+import 'package:my_agri_app/main_app/homepage.dart';
 import 'package:my_agri_app/personal_details/profile.dart';
 
 void main() async {
@@ -22,9 +23,10 @@ class MainPage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => Register(),
-        '/login':(context) => LoginPage(),
-        '/profile':(context) => PersonalDetails(),
+        '/': (context) => const Register(),
+        '/login': (context) => const LoginPage(),
+        '/profile': (context) => const PersonalDetails(),
+        '/homepage':(context) => const HomePage(),
       },
     );
   }

@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:my_agri_app/main_app/homepage.dart';
 import 'package:my_agri_app/personal_details/profile.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,7 +15,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool? flag;
+  bool? _flag;
+  bool showPassword = true;
+
+  void changeIcon() {
+    setState(() {
+      showPassword = !showPassword;
+    });
+  }
+
+  // final _formKey = GlobalKey<FormState>();
 
   static Future<FirebaseApp> _initFireBase() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
@@ -44,15 +54,15 @@ class _LoginPageState extends State<LoginPage> {
     TextEditingController _emailController = TextEditingController();
     // FocusNode _emailFocusNode = FocusNode();
     TextEditingController _passwordController = TextEditingController();
-    if (flag == true) {
-      return const PersonalDetails();
-    } else {
-      return Scaffold(
-        body: FutureBuilder(
-            future: _initFireBase(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return SingleChildScrollView(
+
+    return Scaffold(
+      body: FutureBuilder(
+          future: _initFireBase(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return SingleChildScrollView(
+                child: Form(
+                  // key: _formKey,
                   child: Column(
                     children: [
                       const SizedBox(
@@ -139,6 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Padding(
                           padding: const EdgeInsets.only(top: 7.0),
                           child: TextFormField(
+                            obscureText: true,
                             controller: _passwordController,
                             textAlignVertical: TextAlignVertical.center,
                             decoration: const InputDecoration(
@@ -168,10 +179,13 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       SizedBox(
                         height: 20,
-                        child: (flag == null)
+                        child: (_flag == null)
                             ? const Text('')
-                            : (flag == false)
-                                ? const Text('User not found')
+                            : (_flag == false)
+                                ? const Text(
+                                    'Enter valid details',
+                                    style: TextStyle(color: Colors.red),
+                                  )
                                 : const Text(
                                     'Login successfuly',
                                     style: TextStyle(
@@ -197,14 +211,16 @@ class _LoginPageState extends State<LoginPage> {
                             await _initFireBase();
                             // ignore: use_build_context_synchronously
                             User? user = await loginUsingEmailPassword(
-                                email: _emailController.text,
-                                password: _passwordController.text,
-                                context: context);
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                              context: context,
+                            );
                             setState(() {
                               if (user != null) {
-                                flag = true;
+                                _flag = true;
+                                Navigator.pushNamed(context, '/homepage');
                               } else {
-                                flag = false;
+                                _flag = false;
                               }
                             });
                           },
@@ -253,14 +269,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
-                );
-              } else {
-                return const Center(
-                  child: Text('Ram Ram'),
-                );
-              }
-            }),
-      );
-    }
+                ),
+              );
+            } else {
+              return const Scaffold();
+            }
+          }),
+    );
   }
 }

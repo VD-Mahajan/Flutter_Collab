@@ -1,13 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class PersonalDetails extends StatefulWidget {
   const PersonalDetails({super.key});
 
   @override
-  State createState() => _PersonalDetails();
+  // ignore: no_logic_in_create_state
+  State createState() => _PersonalDetailsState();
 }
 
-class _PersonalDetails extends State<PersonalDetails> {
+class _PersonalDetailsState extends State<PersonalDetails> {
   final TextEditingController _personal_name_Controller =
       TextEditingController();
   final FocusNode _personal_name_FocusNode = FocusNode();
@@ -19,6 +23,32 @@ class _PersonalDetails extends State<PersonalDetails> {
   final TextEditingController _personal_postCode_Controller =
       TextEditingController();
   final FocusNode _personal_postCode_focus = FocusNode();
+
+  addPersonalDetails(String name, String address, String pincode) async {
+    if (name.isEmpty ||
+        address.isEmpty ||
+        pincode.isEmpty ||
+        pincode.length < 6) {
+      print("Enter Required/valid field");
+      return;
+    }
+
+    try {
+      await FirebaseFirestore.instance
+          .collection('Personal info')
+          .doc('_${name}_$address')
+          .set({
+        'Name': name,
+        'Address': address,
+        'Pincode': pincode,
+      });
+      // ignore: use_build_context_synchronously
+      Navigator.pushNamed(context, '/homepage');
+      print('Data inserted successfully');
+    } catch (e) {
+      print('Error adding data: $e'); // Log specific error details
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +214,13 @@ class _PersonalDetails extends State<PersonalDetails> {
             height: 60,
             width: 360,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                addPersonalDetails(
+                  _personal_name_Controller.text.toString(),
+                  _personal_address_Controller.text.toString(),
+                  _personal_postCode_Controller.text.toString(),
+                );
+              },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
                   shape: RoundedRectangleBorder(

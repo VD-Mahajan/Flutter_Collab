@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba7ce835-3386-4618-854b-884cee4a349e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/agri_app/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/agri_app/.vscode/settings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/agri_app/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/agri_app/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/agri_app/android/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/agri_app/android/app/google-services.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/agri_app/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/agri_app/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/agri_app/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/agri_app/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/agri_app/lib/login_module/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/agri_app/lib/login_module/login_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/agri_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/agri_app/lib/main.dart" afterDir="false" />
-    </list>
+    <list default="true" id="ba7ce835-3386-4618-854b-884cee4a349e" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,6 +25,7 @@
     "RunOnceActivity.cidr.known.project.marker": "true",
     "cidr.known.project.marker": "true",
     "com.android.tools.idea.devicemanager.tab": "Physical",
+    "last_opened_file_path": "D:/Download",
     "settings.editor.selected.configurable": "AndroidSdkUpdater"
   }
 }]]></component>

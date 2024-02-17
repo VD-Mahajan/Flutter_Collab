@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -9,20 +11,49 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final FocusNode _phoneFocusNode = FocusNode();
 
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _passwordFocusNode = FocusNode();
 
+  UserCredential? userCredential;
+
+  bool flag = false;
+  bool result = false;
+
+  _insertData(String email, String password) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userCredential!.user!.uid)
+        .set({
+      'Email': email,
+      'password': password,
+    });
+  }
+
+  registerUser(String email, String password) async {
+    if (email.isEmpty || password.isEmpty) {
+      result = true;
+    } else {
+      try {
+        userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: email, password: password);
+
+        if (userCredential != null) {
+          await _insertData(email, password);
+          Navigator.pushNamed(context, '/profile');
+        }
+      } catch (e) {
+        flag = true;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("App"),
-      // ),
       body: ListView(
-        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(
             height: 70,
@@ -39,10 +70,16 @@ class _RegisterState extends State<Register> {
           const Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 18.0, bottom: 15),
+                padding: EdgeInsets.only(
+                  left: 18.0,
+                  bottom: 15,
+                ),
                 child: Text(
                   "Sign Up",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
@@ -50,7 +87,7 @@ class _RegisterState extends State<Register> {
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0, left: 15, right: 15),
             child: TextField(
-              controller: _phoneController,
+              controller: _emailController,
               focusNode: _phoneFocusNode,
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.mail),
@@ -87,6 +124,7 @@ class _RegisterState extends State<Register> {
             padding: const EdgeInsets.only(
                 bottom: 8.0, left: 15, right: 15, top: 12),
             child: TextField(
+              obscureText: true,
               controller: _passwordController,
               focusNode: _passwordFocusNode,
               decoration: InputDecoration(
@@ -116,13 +154,44 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
               ),
-              keyboardType: TextInputType.phone,
+              keyboardType: TextInputType.text,
               style: const TextStyle(
                 fontSize: 23,
               ),
             ),
           ),
           //=====================================================
+          Center(
+            child: (flag)
+                ? const SizedBox(
+                    height: 25,
+                    child: Text(
+                      'User already present',
+                      style: TextStyle(
+                        color: Colors.cyan,
+                      ),
+                    ),
+                  )
+                : const SizedBox(
+                    height: 10,
+                  ),
+          ),
+          Center(
+            child: (result)
+                ? const SizedBox(
+                    height: 25,
+                    child: Text(
+                      'Please enter required field',
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
+                  )
+                : const SizedBox(
+                    height: 10,
+                  ),
+          ),
+
           Padding(
             padding: const EdgeInsets.only(
                 bottom: 8.0, left: 15, right: 15, top: 12),
@@ -130,7 +199,12 @@ class _RegisterState extends State<Register> {
               height: 60,
               width: 360,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    registerUser(_emailController.text.toString(),
+                        _passwordController.text.toString());
+                  });
+                },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                     shape: RoundedRectangleBorder(
