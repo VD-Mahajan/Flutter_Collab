@@ -4,8 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:my_agri_app/main_app/homepage.dart';
-import 'package:my_agri_app/personal_details/profile.dart';
+import 'package:my_agri_app/main_app/home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -69,10 +68,14 @@ class _LoginPageState extends State<LoginPage> {
                         height: 50,
                       ),
                       SizedBox(
-                        child: Image.network(
-                          'https://cdni.iconscout.com/illustration/premium/thumb/login-page-4468581-3783954.png',
-                          // fit: BoxFit.cover,
-                          // color: Colors.green,
+                        // child: Image.network(
+                        //   'https://cdni.iconscout.com/illustration/premium/thumb/login-page-4468581-3783954.png',
+                        //   // fit: BoxFit.cover,
+                        //   // color: Colors.green,
+                        //   height: 270,
+                        // ),
+                        child: Image.asset(
+                          'assets/login.jpg',
                           height: 270,
                         ),
                       ),
@@ -218,7 +221,12 @@ class _LoginPageState extends State<LoginPage> {
                             setState(() {
                               if (user != null) {
                                 _flag = true;
-                                Navigator.pushNamed(context, '/homepage');
+                                // Navigator.pushNamed(context, '/homepage');
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomePage(),
+                                  ),
+                                );
                               } else {
                                 _flag = false;
                               }

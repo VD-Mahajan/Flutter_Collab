@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:my_agri_app/firebase_options.dart';
 import 'package:my_agri_app/login_module/login.dart';
 import 'package:my_agri_app/login_module/register.dart';
-import 'package:my_agri_app/main_app/homepage.dart';
+import 'package:my_agri_app/main_app/home.dart';
+import 'package:my_agri_app/marketplace/marketplace.dart';
 import 'package:my_agri_app/personal_details/profile.dart';
 
 void main() async {
@@ -24,9 +25,11 @@ class MainPage extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const Register(),
+        // '/': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),
         '/profile': (context) => const PersonalDetails(),
         '/homepage':(context) => const HomePage(),
+         '/market':(context)=>const MarketPlace(),
       },
     );
   }

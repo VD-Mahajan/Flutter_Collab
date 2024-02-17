@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:my_agri_app/personal_details/profile.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -42,7 +43,12 @@ class _RegisterState extends State<Register> {
 
         if (userCredential != null) {
           await _insertData(email, password);
-          Navigator.pushNamed(context, '/profile');
+          // Navigator.pushNamed(context, '/profile');
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const PersonalDetails(),
+            ),
+          );
         }
       } catch (e) {
         flag = true;
