@@ -6,6 +6,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_agri_app/main_app/home.dart';
 
+import '../main_app/bottomnavigationbar.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -68,12 +70,6 @@ class _LoginPageState extends State<LoginPage> {
                         height: 50,
                       ),
                       SizedBox(
-                        // child: Image.network(
-                        //   'https://cdni.iconscout.com/illustration/premium/thumb/login-page-4468581-3783954.png',
-                        //   // fit: BoxFit.cover,
-                        //   // color: Colors.green,
-                        //   height: 270,
-                        // ),
                         child: Image.asset(
                           'assets/login.jpg',
                           height: 270,
@@ -216,6 +212,7 @@ class _LoginPageState extends State<LoginPage> {
                             User? user = await loginUsingEmailPassword(
                               email: _emailController.text,
                               password: _passwordController.text,
+                              // ignore: use_build_context_synchronously
                               context: context,
                             );
                             setState(() {
@@ -224,7 +221,7 @@ class _LoginPageState extends State<LoginPage> {
                                 // Navigator.pushNamed(context, '/homepage');
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                    builder: (context) => const HomePage(),
+                                    builder: (context) => const BottomNavBarWrapper(),
                                   ),
                                 );
                               } else {
