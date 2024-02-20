@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class SeedsInformation extends StatefulWidget {
@@ -15,6 +16,21 @@ class _SeedsInformationState extends State {
   void initState() {
     super.initState();
     _searchBarController.addListener(() {});
+  }
+
+  Future<List<Map<String, dynamic>>> getDataFromFirestore(String search) async {
+    final collectionReference = FirebaseFirestore.instance.collection('seeds');
+    final QuerySnapshot<Map<String, dynamic>> querySnapshot;
+
+    if (search.isEmpty) {
+      querySnapshot = await collectionReference.get();
+    } else {
+      querySnapshot = await collectionReference
+          .where('name'.toLowerCase(), isEqualTo: search)
+          .get();
+    }
+    final data = querySnapshot.docs.map((doc) => doc.data()).toList();
+    return data;
   }
 
   @override
@@ -94,8 +110,31 @@ class _SeedsInformationState extends State {
           ),
         ],
       ),
-      body: const Center(
-        child: Text('Weocome to seeds information'),
+      body: FutureBuilder(
+        future: getDataFromFirestore(
+            _searchBarController.text.toLowerCase().toString()),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            final data = snapshot.data!.toList();
+            return ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 300,
+                    width: 300,
+                    child: Image.network(
+                      data[index]["image"].toString(),
+                    ),
+                  ),
+                );
+              },
+            );
+          } else {
+            return Container();
+          }
+        },
       ),
     );
   }
