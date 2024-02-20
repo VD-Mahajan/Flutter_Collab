@@ -23,6 +23,13 @@ class _RegisterState extends State<Register> {
   bool flag = false;
   bool result = false;
 
+  @override
+  void initState() {
+    super.initState();
+    _passwordController.addListener(() {});
+    _emailController.addListener(() {});
+  }
+
   _insertData(String email, String password) async {
     await FirebaseFirestore.instance
         .collection('users')

@@ -8,11 +8,11 @@ import 'package:my_agri_app/homepage/feritizer.dart';
 import 'package:my_agri_app/main_app/home.dart';
 import 'package:my_agri_app/homepage/seeds_information.dart';
 import 'package:my_agri_app/homepage/weather_report.dart';
-import 'package:my_agri_app/homepage/weather_report.dart';
+// import 'package:my_agri_app/homepage/weather_report.dart';
 import 'package:my_agri_app/main_app/marketplace.dart';
 import 'package:my_agri_app/personal_details/profile.dart';
 
-import 'main_app/bottomnavigationbar.dart';
+// import 'main_app/bottomnavigationbar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,9 +31,9 @@ class MainPage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => const Register(),
+        // '/': (context) => const Register(),
         // '/': (context) => const HomePage(),
-        // '/':(context) => const BottomNavBarWrapper(),
+        '/':(context) => const SeedsInformation(),
         '/login': (context) => const LoginPage(),
         '/profile': (context) => const PersonalDetails(),
         '/homepage': (context) => const HomePage(),

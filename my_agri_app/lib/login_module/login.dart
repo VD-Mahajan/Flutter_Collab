@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:my_agri_app/main_app/home.dart';
+// import 'package:my_agri_app/main_app/home.dart';
 
 import '../main_app/bottomnavigationbar.dart';
 
@@ -55,6 +55,13 @@ class _LoginPageState extends State<LoginPage> {
     TextEditingController _emailController = TextEditingController();
     // FocusNode _emailFocusNode = FocusNode();
     TextEditingController _passwordController = TextEditingController();
+
+    @override
+    void initState() {
+      super.initState();
+      _emailController.addListener(() {});
+      _passwordController.addListener(() {});
+    }
 
     return Scaffold(
       body: FutureBuilder(
@@ -107,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(top: 7.0),
-                          child: TextFormField(
+                          child: TextField(
                             controller: _emailController,
                             // focusNode: _emailFocusNode,
                             textAlignVertical: TextAlignVertical.center,
@@ -221,7 +228,8 @@ class _LoginPageState extends State<LoginPage> {
                                 // Navigator.pushNamed(context, '/homepage');
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                    builder: (context) => const BottomNavBarWrapper(),
+                                    builder: (context) =>
+                                        const BottomNavBarWrapper(),
                                   ),
                                 );
                               } else {

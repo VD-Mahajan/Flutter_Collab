@@ -10,7 +10,7 @@ class AddPage extends StatefulWidget {
 class _AddPageState extends State {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       // appBar: AppBar(
       //   title: const Text('This is Add Page'),
       // ),
