@@ -26,7 +26,7 @@ class _SeedsInformationState extends State {
       querySnapshot = await collectionReference.get();
     } else {
       querySnapshot = await collectionReference
-          .where('name'.toLowerCase(), isEqualTo: search)
+          .where('name', isEqualTo: search)
           .get();
     }
     final data = querySnapshot.docs.map((doc) => doc.data()).toList();
@@ -37,37 +37,16 @@ class _SeedsInformationState extends State {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
         toolbarHeight: 65,
-        title: (flag != true)
-            ? SizedBox(
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back_rounded),
-                    ),
-                    const SizedBox(
-                      width: 45,
-                    ),
-                    const Text(
-                      'Seeds Information',
-                      style: TextStyle(
-                        fontSize: 23,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    )
-                  ],
-                ),
-              )
-            : SizedBox(
-                height: 55,
+        backgroundColor: Colors.green,
+        title:Container(
+              // alignment: Alignment.center,
+              // height: 50,
                 child: TextField(
                   controller: _searchBarController,
-                  textAlignVertical: TextAlignVertical.center,
+                  // textAlignVertical: TextAlignVertical.center,
                   decoration: InputDecoration(
+                    
                     hintText: 'search seeds',
                     focusedBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -84,35 +63,23 @@ class _SeedsInformationState extends State {
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
-                          _searchBarController.text = '';
+                          
                         });
                       },
                       icon: const Icon(
-                        Icons.cancel_rounded,
+                        Icons.search,
                       ),
                       color: Colors.black,
                     ),
+                    
                   ),
                 ),
               ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                flag = !flag;
-              });
-            },
-            icon: const Icon(
-              Icons.search_rounded,
-              color: Colors.white,
-            ),
-          ),
-        ],
       ),
       body: FutureBuilder(
         future: getDataFromFirestore(
-            _searchBarController.text.toLowerCase().toString()),
+            _searchBarController.text.toStrin),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             final data = snapshot.data!.toList();
