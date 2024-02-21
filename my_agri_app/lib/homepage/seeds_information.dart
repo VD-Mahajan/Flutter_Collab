@@ -79,7 +79,7 @@ class _SeedsInformationState extends State {
       ),
       body: FutureBuilder(
         future: getDataFromFirestore(
-            _searchBarController.text.toStrin),
+            _searchBarController.text.toString()),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             final data = snapshot.data!.toList();
