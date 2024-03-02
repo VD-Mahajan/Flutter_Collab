@@ -32,8 +32,8 @@ class MainPage extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // '/': (context) => const Register(),
-        // '/': (context) => const HomePage(),
-        '/':(context) => const SeedsInformation(),
+        '/': (context) => const LoginPage(),
+        // '/':(context) => const SeedsInformation(),
         '/login': (context) => const LoginPage(),
         '/profile': (context) => const PersonalDetails(),
         '/homepage': (context) => const HomePage(),
