@@ -31,8 +31,8 @@ class MainPage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        // '/': (context) => const Register(),
-        '/': (context) => const LoginPage(),
+        '/': (context) => const Register(),
+        // '/': (context) => const LoginPage(),
         // '/':(context) => const SeedsInformation(),
         '/login': (context) => const LoginPage(),
         '/profile': (context) => const PersonalDetails(),

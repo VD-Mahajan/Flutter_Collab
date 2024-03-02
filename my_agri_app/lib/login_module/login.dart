@@ -103,25 +103,33 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(
                         height: 20,
                       ),
-
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 65,
+                          horizontal: 15,
                         ),
                         child: TextFormField(
                           controller: _emailController,
+                          maxLines: null,
                           textAlignVertical: TextAlignVertical.center,
                           decoration: InputDecoration(
                             prefixIcon: const Icon(
                               Icons.email_outlined,
                               color: Colors.grey,
                             ),
-                            hintText: 'Enter registered Email',
+                            label: const Text(
+                              "Enter Email",
+                              style: TextStyle(
+                                // color: Colors.grey,
+                                fontSize: 23,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                            // hintText: 'Enter Email',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                             hintStyle: const TextStyle(
-                              color: Colors.grey,
+                              // color: Colors.grey,
                               fontSize: 23,
                               fontWeight: FontWeight.normal,
                             ),
@@ -131,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                             fontWeight: FontWeight.normal,
                           ),
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null || value.trim().isEmpty) {
                               return "Enter username";
                             } else {
                               return null;
@@ -139,18 +147,16 @@ class _LoginPageState extends State<LoginPage> {
                           },
                         ),
                       ),
-                      // ),
-                      // ),
                       const SizedBox(
                         height: 20,
                       ),
-
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 65,
+                          horizontal: 15,
                         ),
                         child: TextFormField(
                           obscureText: true,
+                          obscuringCharacter: '*',
                           controller: _passwordController,
                           textAlignVertical: TextAlignVertical.center,
                           decoration: InputDecoration(
@@ -162,12 +168,20 @@ class _LoginPageState extends State<LoginPage> {
                               Icons.remove_red_eye_outlined,
                               color: Colors.grey,
                             ),
-                            hintText: 'Enter password',
+                            label: const Text(
+                              "Enter password",
+                              style: TextStyle(
+                                // color: Colors.grey,
+                                fontSize: 23,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                            // hintText: 'Enter password',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                             hintStyle: const TextStyle(
-                              color: Colors.grey,
+                              // color: Colors.grey,
                               fontSize: 23,
                               fontWeight: FontWeight.normal,
                             ),
@@ -177,7 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                             fontWeight: FontWeight.normal,
                           ),
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null || value.trim().isEmpty) {
                               return "Enter password";
                             } else {
                               return null;
@@ -185,98 +199,73 @@ class _LoginPageState extends State<LoginPage> {
                           },
                         ),
                       ),
-                      // SizedBox(
-                      //   height: 20,
-                      //   child: (_flag == null)
-                      //       ? const Text('')
-                      //       : (_flag == false)
-                      //           ? const Text(
-                      //               'Enter valid details',
-                      //               style: TextStyle(color: Colors.red),
-                      //             )
-                      //           : const Text(
-                      //               'Login successfuly',
-                      //               style: TextStyle(
-                      //                 color: Colors.green,
-                      //               ),
-                      //             ),
-                      // ),
                       const SizedBox(
-                        height: 20,
+                        height: 30,
                       ),
-                      SizedBox(
-                        height: 60,
-                        width: 260,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                        ),
+                        child: SizedBox(
+                          height: 60,
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
                             ),
-                          ),
-                          onPressed: () async {
-                            await _initFireBase();
-                            // ignore: use_build_context_synchronously
-                            User? user = await loginUsingEmailPassword(
-                              email: _emailController.text,
-                              password: _passwordController.text,
+                            onPressed: () async {
+                              await _initFireBase();
                               // ignore: use_build_context_synchronously
-                              context: context,
-                            );
+                              User? user = await loginUsingEmailPassword(
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                                // ignore: use_build_context_synchronously
+                                context: context,
+                              );
 
-                            validated = _formKey.currentState!.validate();
+                              validated = _formKey.currentState!.validate();
 
-                            if (validated) {
-                              if (user == null) {
+                              if (validated) {
+                                if (user == null) {
+                                  // ignore: use_build_context_synchronously
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Invalid details"),
+                                    ),
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Login Successful"),
+                                      duration: Duration(seconds: 1),
+                                    ),
+                                  );
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const BottomNavBarWrapper(),
+                                    ),
+                                  );
+                                }
+                              } else {
                                 // ignore: use_build_context_synchronously
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text("Invalid details"),
-                                  ),
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Login Successful"),
-                                    duration: Duration(seconds: 1),
-                                  ),
-                                );
-                                Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const BottomNavBarWrapper(),
+                                    content: Text("Enter Credentials"),
                                   ),
                                 );
                               }
-                            } else {
-                              // ignore: use_build_context_synchronously
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Enter Credentials"),
-                                ),
-                              );
-                            }
-
-                            // setState(() {
-                            //   if (user != null) {
-                            //     _flag = true;
-                            //     Navigator.of(context).pushReplacement(
-                            //       MaterialPageRoute(
-                            //         builder: (context) =>
-                            //             const BottomNavBarWrapper(),
-                            //       ),
-                            //     );
-                            //   } else {
-                            //     _flag = false;
-                            //   }
-                            // });
-                          },
-                          child: const Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
+                            },
+                            child: const Text(
+                              'Login',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
