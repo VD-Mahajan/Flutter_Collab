@@ -12,6 +12,8 @@ import 'package:my_agri_app/homepage/weather_report.dart';
 import 'package:my_agri_app/main_app/marketplace.dart';
 import 'package:my_agri_app/personal_details/profile.dart';
 
+import 'homepage/crop_disease.dart';
+
 // import 'main_app/bottomnavigationbar.dart';
 
 void main() async {
@@ -22,7 +24,7 @@ void main() async {
   runApp(const MainPage());
 }
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatelessWidget {  
   const MainPage({super.key});
 
   @override
@@ -31,8 +33,8 @@ class MainPage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
+        // '/':(context)=>const CropDisease(),
         '/': (context) => const Register(),
-        // '/': (context) => const LoginPage(),
         // '/':(context) => const SeedsInformation(),
         '/login': (context) => const LoginPage(),
         '/profile': (context) => const PersonalDetails(),
@@ -42,6 +44,7 @@ class MainPage extends StatelessWidget {
         '/seedsinfo': (context) => const SeedsInformation(),
         '/fertilizer': (context) => const FertilizerInformation(),
         '/cultivationtips': (context) => const CultivationTips(),
+        // '/cropdisease':(context)=>const CropDisease(),
       },
     );
   }

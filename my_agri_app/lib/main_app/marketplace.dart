@@ -10,6 +10,10 @@ class MarketPlace extends StatefulWidget {
 }
 
 class _MarketPlaceState extends State {
+  //VARIABLES
+  String type = '';
+
+  //FUNCTIONS
   Future<List<Map<String, dynamic>>> getDataFromFirestore(String type) async {
     final collectionReference = FirebaseFirestore.instance.collection('market');
     final QuerySnapshot<Map<String, dynamic>> querySnapshot;
@@ -24,7 +28,6 @@ class _MarketPlaceState extends State {
     return data;
   }
 
-  String type = '';
 
   @override
   Widget build(BuildContext context) {
