@@ -175,7 +175,7 @@ class _HomePageState extends State {
                 padding: const EdgeInsets.only(left: 10.0, top: 20, right: 5),
                 child: GestureDetector(
                   onTap: () => {
-                    Navigator.pushNamed(context, '/seedsinfo'),
+                    Navigator.pushNamed(context, '/cropdisease'),
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -199,7 +199,8 @@ class _HomePageState extends State {
                             height: 20,
                           ),
                           const Text(
-                            "Seeds Information",
+                            "Disease Info",
+                            maxLines: null,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,

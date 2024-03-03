@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class CropDisease extends StatefulWidget {
   const CropDisease({super.key});
@@ -33,6 +34,41 @@ class _CropDiseaseState extends State {
     }
     final data = querySnapshot.docs.map((doc) => doc.data()).toList();
     return data;
+  }
+
+  showBottomSheet(String image, String info) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ListView(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  // height: 100,
+                  child: Image.network(
+                    image,
+                    // height: 200,
+                  ),
+                ),
+                Text(info),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.close_sharp,
+                    size: 50,
+                  ),
+                )
+              ],
+            ),
+          );
+        });
   }
 
   @override
@@ -82,12 +118,6 @@ class _CropDiseaseState extends State {
                         } else {
                           type = cropNames[selectedIndex];
                         }
-                        // if (selectedIndex == -1) {
-                        //   selectedIndex = index;
-                        // } else {
-                        //   selectedIndex = index;
-                        //   type = '';
-                        // }
                       });
                     },
                   )
@@ -155,6 +185,7 @@ class _CropDiseaseState extends State {
                                 style: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
+                                  // color: Colors.white,
                                 ),
                               ),
                               Padding(
@@ -175,10 +206,15 @@ class _CropDiseaseState extends State {
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.green[600],
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showBottomSheet(data[index]["image"],
+                                        data[index]["information"]);
+                                  },
                                   child: const Text(
-                                    "Read Details",
-                                    style: TextStyle(color: Colors.white),
+                                    "तपशील वाचा",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),

@@ -44,7 +44,7 @@ class MainPage extends StatelessWidget {
         '/seedsinfo': (context) => const SeedsInformation(),
         '/fertilizer': (context) => const FertilizerInformation(),
         '/cultivationtips': (context) => const CultivationTips(),
-        // '/cropdisease':(context)=>const CropDisease(),
+        '/cropdisease':(context)=>const CropDisease(),
       },
     );
   }
