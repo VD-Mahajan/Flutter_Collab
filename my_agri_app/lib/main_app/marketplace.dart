@@ -28,7 +28,6 @@ class _MarketPlaceState extends State {
     return data;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +105,7 @@ class _MarketPlaceState extends State {
           'Market Place',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 30,
+            fontSize: 25,
             fontWeight: FontWeight.bold,
           ),
         ),

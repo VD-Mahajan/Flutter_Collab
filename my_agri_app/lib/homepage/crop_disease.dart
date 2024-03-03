@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CropDisease extends StatefulWidget {
   const CropDisease({super.key});
@@ -36,39 +35,54 @@ class _CropDiseaseState extends State {
     return data;
   }
 
-  showBottomSheet(String image, String info) {
+  showBottomSheet(String name, String image, String info) {
     showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        builder: (context) {
-          return Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: ListView(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  // height: 100,
-                  child: Image.network(
-                    image,
-                    // height: 200,
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: ListView(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back_ios),
+                  ),
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                height: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(image),
                   ),
                 ),
-                Text(info),
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.close_sharp,
-                    size: 50,
-                  ),
-                )
-              ],
-            ),
-          );
-        });
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(info),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -129,6 +143,15 @@ class _CropDiseaseState extends State {
       ),
       appBar: AppBar(
         backgroundColor: Colors.green,
+        centerTitle: true,
+        title: const Text(
+          "Disease Treatement",
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: FutureBuilder(
         future: getCropDiseaseDataFromFireStore(type),
@@ -207,7 +230,9 @@ class _CropDiseaseState extends State {
                                     backgroundColor: Colors.green[600],
                                   ),
                                   onPressed: () {
-                                    showBottomSheet(data[index]["image"],
+                                    showBottomSheet(
+                                        data[index]["name"],
+                                        data[index]["image"],
                                         data[index]["information"]);
                                   },
                                   child: const Text(
