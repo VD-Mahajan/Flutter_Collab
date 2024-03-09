@@ -260,35 +260,35 @@ class _RegisterState extends State<Register> {
           const SizedBox(
             height: 15,
           ),
-          Center(
-            child: RichText(
-              text: TextSpan(
-                text: '----------- Already have an account? ',
-                style: const TextStyle(
-                    color: Colors.grey, fontWeight: FontWeight.bold),
-                children: [
-                  TextSpan(
-                    text: 'Log in',
-                    style: const TextStyle(
-                      color:
-                          Colors.blue, // Customize the color of the hyperlink
-                      decoration: TextDecoration
-                          .underline, // Add underline to simulate hyperlink
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Navigator.pushNamed(context, '/login');
-                      },
-                  ),
-                  const TextSpan(
-                    text: ' ----------',
-                    style: TextStyle(
-                        color: Colors.grey, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          // Center(
+          //   child: RichText(
+          //     text: TextSpan(
+          //       text: '----------- Already have an account? ',
+          //       style: const TextStyle(
+          //           color: Colors.grey, fontWeight: FontWeight.bold),
+          //       children: [
+          //         TextSpan(
+          //           text: 'Log in',
+          //           style: const TextStyle(
+          //             color:
+          //                 Colors.blue, // Customize the color of the hyperlink
+          //             decoration: TextDecoration
+          //                 .underline, // Add underline to simulate hyperlink
+          //           ),
+          //           recognizer: TapGestureRecognizer()
+          //             ..onTap = () {
+          //               Navigator.pushNamed(context, '/login');
+          //             },
+          //         ),
+          //         const TextSpan(
+          //           text: ' ----------',
+          //           style: TextStyle(
+          //               color: Colors.grey, fontWeight: FontWeight.bold),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

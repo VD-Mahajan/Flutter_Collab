@@ -1,4 +1,5 @@
 {
     "liveServer.settings.port": 5501,
-    "cmake.sourceDirectory": "D:/Flutter_Projects/my_agri_app/linux/flutter"
+    "cmake.sourceDirectory": "D:/Flutter_Projects/my_agri_app/linux/flutter",
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

@@ -1,8 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_agri_app/firebase_options.dart';
-import 'package:my_agri_app/login_module/login.dart';
-import 'package:my_agri_app/login_module/register.dart';
+import 'package:my_agri_app/login_module/Wrapper.dart';
 import 'package:my_agri_app/homepage/cultivation_tips.dart';
 import 'package:my_agri_app/homepage/feritizer.dart';
 import 'package:my_agri_app/main_app/home.dart';
@@ -24,7 +23,7 @@ void main() async {
   runApp(const MainPage());
 }
 
-class MainPage extends StatelessWidget {  
+class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
   @override
@@ -34,9 +33,8 @@ class MainPage extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // '/':(context)=>const CropDisease(),
-        '/': (context) => const Register(),
-        // '/':(context) => const SeedsInformation(),
-        '/login': (context) => const LoginPage(),
+        '/': (context) => const Wrapper(),
+        // '/': (context) => const PersonalDetails(),
         '/profile': (context) => const PersonalDetails(),
         '/homepage': (context) => const HomePage(),
         '/market': (context) => const MarketPlace(),
@@ -44,7 +42,7 @@ class MainPage extends StatelessWidget {
         '/seedsinfo': (context) => const SeedsInformation(),
         '/fertilizer': (context) => const FertilizerInformation(),
         '/cultivationtips': (context) => const CultivationTips(),
-        '/cropdisease':(context)=>const CropDisease(),
+        '/cropdisease': (context) => const CropDisease(),
       },
     );
   }

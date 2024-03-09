@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_agri_app/main_app/home.dart';
 
+import '../main_app/bottomnavigationbar.dart';
+
 class PersonalDetails extends StatefulWidget {
   const PersonalDetails({super.key});
 
@@ -13,24 +15,23 @@ class PersonalDetails extends StatefulWidget {
 }
 
 class _PersonalDetailsState extends State<PersonalDetails> {
-  final TextEditingController _personal_name_Controller =
-      TextEditingController();
-  final FocusNode _personal_name_FocusNode = FocusNode();
+  final TextEditingController _personalNameController = TextEditingController();
+  final FocusNode _personalNameFocusNode = FocusNode();
 
-  final TextEditingController _personal_address_Controller =
+  final TextEditingController _personalAddressController =
       TextEditingController();
-  final FocusNode _personal_address_focus = FocusNode();
+  final FocusNode _personalAddressFocusNode = FocusNode();
 
-  final TextEditingController _personal_postCode_Controller =
+  final TextEditingController _personalPostCodeController =
       TextEditingController();
-  final FocusNode _personal_postCode_focus = FocusNode();
+  final FocusNode _personalPostCodeFocusNode = FocusNode();
 
   addPersonalDetails(String name, String address, String pincode) async {
     if (name.isEmpty ||
         address.isEmpty ||
         pincode.isEmpty ||
         pincode.length < 6) {
-      print("Enter Required/valid field");
+      // print("Enter Required/valid field");
       return;
     }
 
@@ -47,12 +48,12 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       // Navigator.pushNamed(context, '/homepage');
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => const HomePage(),
+          builder: (context) => const BottomNavBarWrapper(),
         ),
       );
-      print('Data inserted successfully');
+      // print('Data inserted successfully');
     } catch (e) {
-      print('Error adding data: $e'); // Log specific error details
+      // print('Error adding data: $e');
     }
   }
 
@@ -106,8 +107,8 @@ class _PersonalDetailsState extends State<PersonalDetails> {
           padding:
               const EdgeInsets.only(bottom: 8.0, left: 15, right: 15, top: 10),
           child: TextField(
-            controller: _personal_name_Controller,
-            focusNode: _personal_name_FocusNode,
+            controller: _personalNameController,
+            focusNode: _personalNameFocusNode,
             decoration: InputDecoration(
               prefixIcon: const Icon(Icons.person),
               hintText: "Full Name",
@@ -142,8 +143,8 @@ class _PersonalDetailsState extends State<PersonalDetails> {
           padding:
               const EdgeInsets.only(bottom: 8.0, left: 15, right: 15, top: 10),
           child: TextField(
-            controller: _personal_address_Controller,
-            focusNode: _personal_address_focus,
+            controller: _personalAddressController,
+            focusNode: _personalAddressFocusNode,
             decoration: InputDecoration(
               prefixIcon: const Icon(Icons.list_alt_rounded),
               hintText: "Address",
@@ -178,8 +179,8 @@ class _PersonalDetailsState extends State<PersonalDetails> {
           padding:
               const EdgeInsets.only(bottom: 8.0, left: 15, right: 15, top: 10),
           child: TextField(
-            controller: _personal_postCode_Controller,
-            focusNode: _personal_postCode_focus,
+            controller: _personalPostCodeController,
+            focusNode: _personalPostCodeFocusNode,
             decoration: InputDecoration(
               prefixIcon: const Icon(Icons.confirmation_number_outlined),
               hintText: "Post Code",
@@ -222,9 +223,9 @@ class _PersonalDetailsState extends State<PersonalDetails> {
             child: ElevatedButton(
               onPressed: () {
                 addPersonalDetails(
-                  _personal_name_Controller.text.toString(),
-                  _personal_address_Controller.text.toString(),
-                  _personal_postCode_Controller.text.toString(),
+                  _personalNameController.text.toString(),
+                  _personalAddressController.text.toString(),
+                  _personalPostCodeController.text.toString(),
                 );
               },
               style: ElevatedButton.styleFrom(
