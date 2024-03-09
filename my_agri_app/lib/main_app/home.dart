@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'notification.dart';
 // import 'package:flutter/services.dart';
 // import 'package:google_nav_bar/google_nav_bar.dart';
 // import 'package:my_agri_app/main_app/bottomnavigationbar.dart';
@@ -32,6 +34,19 @@ class _HomePageState extends State {
           ),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const Notifications();
+              }));
+            },
+            icon: const Icon(
+              Icons.notifications,
+              color: Colors.white,
+            ),
+          )
+        ],
       ),
       drawer: Drawer(
         backgroundColor: Colors.green[200],

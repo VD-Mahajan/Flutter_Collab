@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_agri_app/login_module/newloginpage.dart';
+import 'package:my_agri_app/login_module/login_page.dart';
 import 'package:my_agri_app/main_app/bottomnavigationbar.dart';
 
 class Wrapper extends StatefulWidget {

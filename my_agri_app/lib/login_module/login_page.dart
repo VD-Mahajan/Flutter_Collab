@@ -1,13 +1,13 @@
-import 'dart:async';
+// import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_agri_app/login_module/register.dart';
 // import 'package:my_agri_app/main_app/home.dart';
 
-import '../main_app/bottomnavigationbar.dart';
+// import '../main_app/bottomnavigationbar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -42,11 +42,13 @@ class _LoginPageState extends State<LoginPage> {
 
   signIn() async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-              email: _emailController.text, password: _passwordController.text);
+      // UserCredential userCredential = await FirebaseAuth.instance
+      //     .signInWithEmailAndPassword(
+      //         email: _emailController.text, password: _passwordController.text);
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
 
-      User? user = userCredential.user;
+      // User? user = userCredential.user;
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
