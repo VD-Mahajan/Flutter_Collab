@@ -10,6 +10,7 @@ import 'package:my_agri_app/homepage/weather_report.dart';
 // import 'package:my_agri_app/homepage/weather_report.dart';
 import 'package:my_agri_app/main_app/marketplace.dart';
 import 'package:my_agri_app/personal_details/profile.dart';
+import 'package:my_agri_app/splash_screen.dart';
 
 import 'homepage/crop_disease.dart';
 
@@ -33,7 +34,8 @@ class MainPage extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // '/':(context)=>const CropDisease(),
-        '/': (context) => const Wrapper(),
+        // '/': (context) => const Wrapper(),
+        '/': (context) => const SplashScreen(),
         // '/': (context) => const PersonalDetails(),
         '/profile': (context) => const PersonalDetails(),
         '/homepage': (context) => const HomePage(),
