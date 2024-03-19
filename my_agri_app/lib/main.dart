@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_agri_app/firebase_options.dart';
+import 'package:my_agri_app/firstscreen.dart';
 import 'package:my_agri_app/login_module/Wrapper.dart';
 import 'package:my_agri_app/homepage/cultivation_tips.dart';
 import 'package:my_agri_app/homepage/feritizer.dart';
@@ -34,8 +35,8 @@ class MainPage extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // '/':(context)=>const CropDisease(),
-        // '/': (context) => const Wrapper(),
-        '/': (context) => const SplashScreen(),
+        '/': (context) => const SelectType(),
+        // '/': (context) => const SplashScreen(),
         // '/': (context) => const PersonalDetails(),
         '/profile': (context) => const PersonalDetails(),
         '/homepage': (context) => const HomePage(),
