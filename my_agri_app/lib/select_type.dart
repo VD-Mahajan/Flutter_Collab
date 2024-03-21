@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class SelectType extends StatefulWidget {
   const SelectType({super.key});
@@ -126,7 +124,13 @@ class _SelectTypeState extends State<SelectType> {
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (selected == 'farmer') {
+                    Navigator.pushNamed(context, '/user_login');
+                  } else {
+                    Navigator.pushNamed(context, '/admin_login');
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

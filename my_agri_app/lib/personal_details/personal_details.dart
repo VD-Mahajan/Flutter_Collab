@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+// import 'package:my_agri_app/login_module/Wrapper.dart';
+import 'package:my_agri_app/login_module/user_login_page.dart';
 // import 'package:my_agri_app/main_app/home.dart';
 
-import '../main_app/bottomnavigationbar.dart';
+// import '../main_app/bottomnavigationbar.dart';
 
 class PersonalDetails extends StatefulWidget {
   const PersonalDetails({super.key});
@@ -48,7 +50,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       // Navigator.pushNamed(context, '/homepage');
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => const BottomNavBarWrapper(),
+          builder: (context) => const LoginPage(),
         ),
       );
       // print('Data inserted successfully');

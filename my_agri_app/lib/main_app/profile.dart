@@ -21,10 +21,12 @@ class _ProfileState extends State {
       ),
       body: Center(
         child: ElevatedButton(
-            onPressed: () async {
-              await signOut();
-            },
-            child: const Text("Sign out")),
+          onPressed: () async {
+            await signOut();
+            Navigator.pop(context);
+          },
+          child: const Text("Sign out"),
+        ),
       ),
     );
   }

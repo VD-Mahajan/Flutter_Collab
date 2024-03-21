@@ -4,7 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:my_agri_app/login_module/register.dart';
+import 'package:my_agri_app/login_module/user_register.dart';
+import 'package:my_agri_app/main_app/bottomnavigationbar.dart';
+
+import 'verify_user.dart';
+
+// import 'Wrapper.dart';
 // import 'package:my_agri_app/main_app/home.dart';
 
 // import '../main_app/bottomnavigationbar.dart';
@@ -42,13 +47,24 @@ class _LoginPageState extends State<LoginPage> {
 
   signIn() async {
     try {
-      // UserCredential userCredential = await FirebaseAuth.instance
-      //     .signInWithEmailAndPassword(
-      //         email: _emailController.text, password: _passwordController.text);
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text, password: _passwordController.text);
 
-      // User? user = userCredential.user;
+      if (FirebaseAuth.instance.currentUser!.emailVerified) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) {
+            return const BottomNavBarWrapper();
+          }),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) {
+            return const VerifyUser();
+          }),
+        );
+      }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

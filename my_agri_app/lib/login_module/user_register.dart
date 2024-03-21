@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:my_agri_app/personal_details/profile.dart';
+import 'package:my_agri_app/personal_details/personal_details.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
