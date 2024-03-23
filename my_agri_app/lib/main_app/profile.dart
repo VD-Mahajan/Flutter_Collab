@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import '../firebase_data/methods.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -32,18 +31,6 @@ class _ProfileState extends State {
   }
 
   fetchData() async {
-    final collectionReference =
-        FirebaseFirestore.instance.collection('Personal info');
-    final QuerySnapshot<Map<String, dynamic>> querySnapshot;
-
-    querySnapshot = await collectionReference
-        .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
-        .get();
-    final data = querySnapshot.docs.map((doc) => doc.data()).toList();
-    // print(data[0]['Name']);
-    // print(data[0]['phoneNumber']);
-    // print(data[0]['Address']);
-    // print(data[0]['Pincode']);
     setState(() {
       _nameController.text = data[0]['Name'].toString();
       _numberController.text = data[0]['phoneNumber'].toString();
@@ -88,7 +75,7 @@ class _ProfileState extends State {
                 child: ElevatedButton(
                   onPressed: () async {
                     await signOut();
-                    Navigator.pop(context);
+                    Navigator.popUntil(context, (route) => route.isFirst);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.redAccent,
@@ -132,11 +119,12 @@ class _ProfileState extends State {
                 Center(
                   child: Container(
                     height: 150,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
+                    decoration: BoxDecoration(
+                      image: const DecorationImage(
                         image: AssetImage('assets/user1.png'),
                       ),
                       shape: BoxShape.circle,
+                      border: Border.all(),
                     ),
                   ),
                 ),

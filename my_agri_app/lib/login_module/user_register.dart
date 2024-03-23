@@ -50,7 +50,7 @@ class _RegisterState extends State<Register> {
 
       if (userCredential != null) {
         await _insertData(email, password);
-        // Navigator.pushNamed(context, '/profile');
+
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => const PersonalDetails(),
@@ -218,11 +218,27 @@ class _RegisterState extends State<Register> {
                       ),
                     );
                   } else if (validated) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Registration successful"),
-                      ),
-                    );
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const AlertDialog(
+                            content: SizedBox(
+                              height: 100,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  CircularProgressIndicator(),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text('Registration in progress'),
+                                ],
+                              ),
+                            ),
+                          );
+                        });
                     setState(() {
                       registerUser(_emailController.text.toString(),
                           _passwordController.text.toString());
@@ -259,35 +275,6 @@ class _RegisterState extends State<Register> {
           const SizedBox(
             height: 15,
           ),
-          // Center(
-          //   child: RichText(
-          //     text: TextSpan(
-          //       text: '----------- Already have an account? ',
-          //       style: const TextStyle(
-          //           color: Colors.grey, fontWeight: FontWeight.bold),
-          //       children: [
-          //         TextSpan(
-          //           text: 'Log in',
-          //           style: const TextStyle(
-          //             color:
-          //                 Colors.blue, // Customize the color of the hyperlink
-          //             decoration: TextDecoration
-          //                 .underline, // Add underline to simulate hyperlink
-          //           ),
-          //           recognizer: TapGestureRecognizer()
-          //             ..onTap = () {
-          //               Navigator.pushNamed(context, '/login');
-          //             },
-          //         ),
-          //         const TextSpan(
-          //           text: ' ----------',
-          //           style: TextStyle(
-          //               color: Colors.grey, fontWeight: FontWeight.bold),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

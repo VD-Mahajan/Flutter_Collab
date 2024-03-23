@@ -18,6 +18,9 @@ class PersonalDetails extends StatefulWidget {
 }
 
 class _PersonalDetailsState extends State<PersonalDetails> {
+  //KEYS
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final TextEditingController _personalNameController = TextEditingController();
   final FocusNode _personalNameFocusNode = FocusNode();
 
@@ -114,179 +117,187 @@ class _PersonalDetailsState extends State<PersonalDetails> {
         ),
         //================================================================
         Padding(
-          padding:
-              const EdgeInsets.only(bottom: 8.0, left: 15, right: 15, top: 10),
-          child: TextField(
-            controller: _personalNameController,
-            focusNode: _personalNameFocusNode,
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.person),
-              hintText: "Full Name",
-              prefixIconColor: Colors.grey,
-              hintStyle: const TextStyle(
-                fontSize: 23,
-              ),
-              border: InputBorder.none,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(
-                  color: Colors.grey,
-                  width: 2,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(
-                  color: Colors.grey,
-                  width: 2,
-                ),
-              ),
-            ),
-            // keyboardType: TextInputType.phone,
-            style: const TextStyle(
-              fontSize: 23,
-            ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 15.0,
+            vertical: 15,
           ),
-        ),
-        //================================================================
-        Padding(
-          padding:
-              const EdgeInsets.only(bottom: 8.0, left: 15, right: 15, top: 10),
-          child: TextField(
-            controller: _phoneNumberCodeController,
-            focusNode: _phoneNumberFocusNode,
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.phone),
-              hintText: "Phone Number",
-              prefixIconColor: Colors.grey,
-              hintStyle: const TextStyle(
-                fontSize: 23,
-              ),
-              border: InputBorder.none,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(
-                  color: Colors.grey,
-                  width: 2,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  child: TextFormField(
+                    controller: _personalNameController,
+                    focusNode: _personalNameFocusNode,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.person),
+                      hintText: "Full Name",
+                      prefixIconColor: Colors.grey,
+                      hintStyle: const TextStyle(
+                        fontSize: 23,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Colors.grey,
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    // keyboardType: TextInputType.phone,
+                    style: const TextStyle(
+                      fontSize: 23,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter name';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
                 ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(
-                  color: Colors.grey,
-                  width: 2,
+                //================================================================
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  child: TextFormField(
+                    controller: _phoneNumberCodeController,
+                    focusNode: _phoneNumberFocusNode,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.phone),
+                      hintText: "Phone Number",
+                      prefixIconColor: Colors.grey,
+                      hintStyle: const TextStyle(
+                        fontSize: 23,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Colors.grey,
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    keyboardType: TextInputType.phone,
+                    style: const TextStyle(
+                      fontSize: 23,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter number';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
                 ),
-              ),
-            ),
-            keyboardType: TextInputType.phone,
-            style: const TextStyle(
-              fontSize: 23,
-            ),
-          ),
-        ),
-        //====================================================================
-        Padding(
-          padding:
-              const EdgeInsets.only(bottom: 8.0, left: 15, right: 15, top: 10),
-          child: TextField(
-            controller: _personalAddressController,
-            focusNode: _personalAddressFocusNode,
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.list_alt_rounded),
-              hintText: "Address",
-              prefixIconColor: Colors.grey,
-              hintStyle: const TextStyle(
-                fontSize: 23,
-              ),
-              border: InputBorder.none,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(
-                  color: Colors.grey,
-                  width: 2,
+                //====================================================================
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  child: TextFormField(
+                    controller: _personalAddressController,
+                    focusNode: _personalAddressFocusNode,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.list_alt_rounded),
+                      hintText: "Address",
+                      prefixIconColor: Colors.grey,
+                      hintStyle: const TextStyle(
+                        fontSize: 23,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Colors.grey,
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    // keyboardType: TextInputType.phone,
+                    style: const TextStyle(
+                      fontSize: 23,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter address';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
                 ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(
-                  color: Colors.grey,
-                  width: 2,
+                //======================================================================
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  child: TextFormField(
+                    controller: _personalPostCodeController,
+                    focusNode: _personalPostCodeFocusNode,
+                    decoration: InputDecoration(
+                      prefixIcon:
+                          const Icon(Icons.confirmation_number_outlined),
+                      hintText: "Pincode",
+                      prefixIconColor: Colors.grey,
+                      hintStyle: const TextStyle(
+                        fontSize: 23,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Colors.grey,
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    keyboardType: TextInputType.phone,
+                    style: const TextStyle(
+                      fontSize: 23,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter Pincode';
+                      } else if (value.length != 6) {
+                        return 'Enter valid Pincode';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
                 ),
-              ),
-            ),
-            // keyboardType: TextInputType.phone,
-            style: const TextStyle(
-              fontSize: 23,
-            ),
-          ),
-        ),
-        //======================================================================
-        Padding(
-          padding:
-              const EdgeInsets.only(bottom: 8.0, left: 15, right: 15, top: 10),
-          child: TextField(
-            controller: _personalPostCodeController,
-            focusNode: _personalPostCodeFocusNode,
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.confirmation_number_outlined),
-              hintText: "Post Code",
-              prefixIconColor: Colors.grey,
-              hintStyle: const TextStyle(
-                fontSize: 23,
-              ),
-              border: InputBorder.none,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(
-                  color: Colors.grey,
-                  width: 2,
+                //============================================================
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  child: SizedBox(
+                    height: 60,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        bool validated = _formKey.currentState!.validate();
+
+                        if (validated) {
+                          addPersonalDetails(
+                            _personalNameController.text.toString(),
+                            _personalAddressController.text.toString(),
+                            _personalPostCodeController.text.toString(),
+                            _phoneNumberCodeController.text.toString(),
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          )),
+                      child: const Text(
+                        "Save",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(
-                  color: Colors.grey,
-                  width: 2,
-                ),
-              ),
-            ),
-            keyboardType: TextInputType.phone,
-            style: const TextStyle(
-              fontSize: 23,
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 100,
-        ),
-        //============================================================
-        Padding(
-          padding:
-              const EdgeInsets.only(bottom: 8.0, left: 15, right: 15, top: 12),
-          child: SizedBox(
-            height: 60,
-            width: 360,
-            child: ElevatedButton(
-              onPressed: () {
-                addPersonalDetails(
-                  _personalNameController.text.toString(),
-                  _personalAddressController.text.toString(),
-                  _personalPostCodeController.text.toString(),
-                  _phoneNumberCodeController.text.toString(),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  )),
-              child: const Text(
-                "Save",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                ),
-              ),
+              ],
             ),
           ),
         ),
