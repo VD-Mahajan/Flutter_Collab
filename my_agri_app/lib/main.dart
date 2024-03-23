@@ -39,7 +39,7 @@ class MainPage extends StatelessWidget {
       routes: {
         // '/':(context)=>const CropDisease(),
         '/': (context) => const SplashScreen(),
-        // '/': (context) => const VerifyUser(),
+        // '/': (context) => const HomePage(),
         '/profile': (context) => const PersonalDetails(),
         '/homepage': (context) => const HomePage(),
         '/market': (context) => const MarketPlace(),

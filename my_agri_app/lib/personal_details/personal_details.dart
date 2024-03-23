@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,12 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       TextEditingController();
   final FocusNode _personalPostCodeFocusNode = FocusNode();
 
-  addPersonalDetails(String name, String address, String pincode) async {
+  final TextEditingController _phoneNumberCodeController =
+      TextEditingController();
+  final FocusNode _phoneNumberFocusNode = FocusNode();
+
+  addPersonalDetails(
+      String name, String address, String pincode, String phoneNumber) async {
     if (name.isEmpty ||
         address.isEmpty ||
         pincode.isEmpty ||
@@ -40,11 +46,13 @@ class _PersonalDetailsState extends State<PersonalDetails> {
     try {
       await FirebaseFirestore.instance
           .collection('Personal info')
-          .doc('_${name}_$address')
+          .doc('${FirebaseAuth.instance.currentUser!.email}')
           .set({
         'Name': name,
         'Address': address,
         'Pincode': pincode,
+        'phoneNumber': phoneNumber,
+        'email': FirebaseAuth.instance.currentUser!.email,
       });
       // ignore: use_build_context_synchronously
       // Navigator.pushNamed(context, '/homepage');
@@ -140,6 +148,42 @@ class _PersonalDetailsState extends State<PersonalDetails> {
             ),
           ),
         ),
+        //================================================================
+        Padding(
+          padding:
+              const EdgeInsets.only(bottom: 8.0, left: 15, right: 15, top: 10),
+          child: TextField(
+            controller: _phoneNumberCodeController,
+            focusNode: _phoneNumberFocusNode,
+            decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.phone),
+              hintText: "Phone Number",
+              prefixIconColor: Colors.grey,
+              hintStyle: const TextStyle(
+                fontSize: 23,
+              ),
+              border: InputBorder.none,
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: Colors.grey,
+                  width: 2,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: Colors.grey,
+                  width: 2,
+                ),
+              ),
+            ),
+            keyboardType: TextInputType.phone,
+            style: const TextStyle(
+              fontSize: 23,
+            ),
+          ),
+        ),
         //====================================================================
         Padding(
           padding:
@@ -228,6 +272,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                   _personalNameController.text.toString(),
                   _personalAddressController.text.toString(),
                   _personalPostCodeController.text.toString(),
+                  _phoneNumberCodeController.text.toString(),
                 );
               },
               style: ElevatedButton.styleFrom(

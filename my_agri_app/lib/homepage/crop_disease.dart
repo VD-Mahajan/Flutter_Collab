@@ -88,7 +88,8 @@ class _CropDiseaseState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[100],
+      // backgroundColor: Colors.green[100],
+      backgroundColor: Colors.grey.shade200,
       drawer: Drawer(
         elevation: 5,
         width: 230,
@@ -156,7 +157,9 @@ class _CropDiseaseState extends State {
       body: FutureBuilder(
         future: getCropDiseaseDataFromFireStore(type),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.connectionState == ConnectionState.done) {
             final data = snapshot.data!.toList();
             return ListView.builder(
               physics: const BouncingScrollPhysics(
@@ -169,84 +172,90 @@ class _CropDiseaseState extends State {
                     vertical: 12.0,
                     horizontal: 10,
                   ),
-                  child: Card(
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    elevation: 5,
-                    color: Colors.green[300],
-                    child: Row(
-                      children: [
-                        Column(
-                          children: [
-                            ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(12),
-                                bottomLeft: Radius.circular(12),
-                              ),
-                              child: Image.network(
-                                data[index]['image'],
-                                height: 130,
-                                width: 120,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            // vertical: 5,
-                            horizontal: 10,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                  child: GestureDetector(
+                    onTap: () {
+                      showBottomSheet(data[index]["name"], data[index]["image"],
+                          data[index]["information"]);
+                    },
+                    child: Card(
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      elevation: 5,
+                      color: Colors.green[300],
+                      child: Row(
+                        children: [
+                          Column(
                             children: [
-                              Text(
-                                data[index]['name'],
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
-                                  // color: Colors.white,
+                              ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(12),
+                                  bottomLeft: Radius.circular(12),
+                                ),
+                                child: Image.network(
+                                  data[index]['image'],
+                                  height: 130,
+                                  width: 120,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5.0),
-                                child: SizedBox(
-                                  width: 180,
-                                  child: Text(
-                                    data[index]['information'],
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 3,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.green[600],
-                                  ),
-                                  onPressed: () {
-                                    showBottomSheet(
-                                        data[index]["name"],
-                                        data[index]["image"],
-                                        data[index]["information"]);
-                                  },
-                                  child: const Text(
-                                    "तपशील वाचा",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
+                              const SizedBox(
+                                width: 10,
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              // vertical: 5,
+                              horizontal: 10,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  data[index]['name'],
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    // color: Colors.white,
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5.0),
+                                  child: SizedBox(
+                                    width: 180,
+                                    child: Text(
+                                      data[index]['information'],
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.green[600],
+                                    ),
+                                    onPressed: () {
+                                      showBottomSheet(
+                                          data[index]["name"],
+                                          data[index]["image"],
+                                          data[index]["information"]);
+                                    },
+                                    child: const Text(
+                                      "तपशील वाचा",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );

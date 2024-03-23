@@ -36,7 +36,7 @@ class _NotificationsState extends State<Notifications> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[100],
+      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         title: const Text("Notifications"),
         centerTitle: true,
@@ -45,7 +45,11 @@ class _NotificationsState extends State<Notifications> {
       body: FutureBuilder(
         future: getNotifications(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.connectionState == ConnectionState.done) {
             final data = snapshot.data!.toList();
             return ListView.builder(
                 physics: const BouncingScrollPhysics(

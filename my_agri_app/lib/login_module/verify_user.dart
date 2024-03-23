@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_agri_app/login_module/user_login_page.dart';
 
 class VerifyUser extends StatefulWidget {
   const VerifyUser({super.key});
@@ -14,8 +13,13 @@ class _VerifyUserState extends State<VerifyUser> {
   bool isMailSent = false;
 
   //METHODS
-  _restartApplication() {
-    exit(0);
+  _login() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) {
+        return const LoginPage();
+      }),
+    );
   }
 
   @override
@@ -77,16 +81,16 @@ class _VerifyUserState extends State<VerifyUser> {
                     ),
               ElevatedButton(
                 onPressed: () {
-                  _restartApplication();
+                  _login();
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
+                  backgroundColor: Colors.green,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: const Text('Exit'),
+                child: const Text('Login'),
               )
             ],
           ),
