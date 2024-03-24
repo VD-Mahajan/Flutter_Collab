@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:my_agri_app/firebase_data/methods.dart';
 import 'package:my_agri_app/login_module/user_register.dart';
 import 'package:my_agri_app/main_app/bottomnavigationbar.dart';
 
@@ -51,6 +52,8 @@ class _LoginPageState extends State<LoginPage> {
           email: _emailController.text, password: _passwordController.text);
 
       if (FirebaseAuth.instance.currentUser!.emailVerified) {
+        await fetchData();
+        await fetchProfileData();
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) {

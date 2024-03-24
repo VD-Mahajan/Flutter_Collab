@@ -16,6 +16,7 @@ class _ProfileState extends State {
   String? name;
   String? phoneNumber;
   String? address;
+  dynamic userData;
 
   //CONTROLLERS
   final TextEditingController _nameController = TextEditingController();
@@ -31,10 +32,12 @@ class _ProfileState extends State {
   }
 
   fetchData() async {
+    final temp = await fetchProfileData();
     setState(() {
-      _nameController.text = data[0]['Name'].toString();
-      _numberController.text = data[0]['phoneNumber'].toString();
-      _addressController.text = data[0]['Address'].toString();
+      userData = temp;
+      _nameController.text = userData[0]['Name'].toString();
+      _numberController.text = userData[0]['phoneNumber'].toString();
+      _addressController.text = userData[0]['Address'].toString();
     });
   }
 
@@ -54,8 +57,9 @@ class _ProfileState extends State {
   @override
   void initState() {
     super.initState();
+
     fetchData();
-    // print('${FirebaseAuth.instance.currentUser!.email}');
+
     name = _nameController.text;
     phoneNumber = _numberController.text;
     address = _addressController.text;

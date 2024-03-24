@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-
 import 'addpage.dart';
 import 'home.dart';
 import 'marketplace.dart';
@@ -20,6 +19,11 @@ class _BottomNavBarWrapperState extends State<BottomNavBarWrapper> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

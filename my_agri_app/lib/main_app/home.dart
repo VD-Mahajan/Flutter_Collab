@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State {
   int number = 1;
   int _currentIndex = 0;
+  String? userName;
 
   //LIST
   List images = [
@@ -29,371 +30,291 @@ class _HomePageState extends State {
 
   final CarouselController _carouselController = CarouselController();
 
-  // fetchData() async {
-  //   final collectionReference =
-  //       FirebaseFirestore.instance.collection('Personal info');
-  //   final QuerySnapshot<Map<String, dynamic>> querySnapshot;
-
-  //   querySnapshot = await collectionReference
-  //       .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
-  //       .get();
-  //   final data = await querySnapshot.docs.map((doc) => doc.data()).toList();
-  //   setState(() {
-  //     name = data[0]['Name'];
-  //   });
-  // }
+  setName() async {
+    String temp = await fetchData();
+    setState(() {
+      userName = temp;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    // fetchData();
+    setName();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (name == null) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    } else {
-      return Scaffold(
-        // backgroundColor: Colors.green[100],
-        backgroundColor: Colors.white,
-        // appBar: AppBar(
-        //   backgroundColor: Colors.green,
-        //   title: const Text(
-        //     "Krushi Mitra",
-        //     style: TextStyle(
-        //       fontSize: 25,
-        //       fontWeight: FontWeight.bold,
-        //       color: Colors.white,
-        //     ),
-        //   ),
-        //   centerTitle: true,
-        //   actions: [
-        //     IconButton(
-        //       onPressed: () {
-        //         Navigator.push(context, MaterialPageRoute(builder: (context) {
-        //           return const Notifications();
-        //         }));
-        //       },
-        //       icon: const Icon(
-        //         Icons.notifications,
-        //         color: Colors.white,
-        //       ),
-        //     )
-        //   ],
-        // ),
-        // drawer: Drawer(
-        //   backgroundColor: Colors.green[200],
-        //   child: ListView(
-        //     children: [
-        //       const SizedBox(
-        //         height: 100,
-        //         child: CircleAvatar(
-        //           radius: 70,
-        //           backgroundImage: AssetImage('assets/logo1.png'),
-        //         ),
-        //       ),
-        //       const SizedBox(
-        //         height: 10,
-        //       ),
-        //       Padding(
-        //         padding: const EdgeInsets.only(left: 30.0),
-        //         child: ListTile(
-        //           leading: const Icon(Icons.contact_emergency_rounded),
-        //           title: const Text(
-        //             "About Us",
-        //             style: TextStyle(
-        //               fontSize: 20,
-        //             ),
-        //           ),
-        //           // tileColor: Colors.red,
-        //           onTap: () {
-        //             // print("hello");
-        //           },
-        //         ),
-        //       ),
-        //       const SizedBox(
-        //         height: 10,
-        //       ),
-        //       const Padding(
-        //         padding: EdgeInsets.only(left: 45.0),
-        //         child: Text('work in progress.....'),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        //=========================== BODY ===================================================
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20.0,
-                      top: 30.0,
-                    ),
-                    child: Text(
-                      'Hello 👋',
-                      style: GoogleFonts.quicksand(
-                        fontSize: 30,
-                      ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 20.0,
+                    top: 30.0,
+                  ),
+                  child: Text(
+                    'Hello 👋',
+                    style: GoogleFonts.quicksand(
+                      fontSize: 30,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20.0,
-                      // top: 30.0,
-                    ),
-                    child: Text(
-                      '$name',
-                      style: GoogleFonts.quicksand(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600,
-                      ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 20.0,
+                    // top: 30.0,
+                  ),
+                  child: Text(
+                    '$userName',
+                    style: GoogleFonts.quicksand(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: CarouselSlider(
-                      items: List.generate(images.length, (index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(images[index]),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: CarouselSlider(
+                    items: List.generate(images.length, (index) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(images[index]),
+                            fit: BoxFit.cover,
                           ),
-                        );
-                      }),
-                      options: CarouselOptions(
-                        height: 200,
-                        autoPlay: true,
-                        enlargeCenterPage: true,
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        viewportFraction: 1,
-                        aspectRatio: 16 / 9,
-                        enableInfiniteScroll: true,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            _currentIndex = index;
-                          });
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      );
+                    }),
+                    options: CarouselOptions(
+                      height: 200,
+                      autoPlay: true,
+                      enlargeCenterPage: true,
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      viewportFraction: 1,
+                      aspectRatio: 16 / 9,
+                      enableInfiniteScroll: true,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _currentIndex = index;
+                        });
+                      },
+                    ),
+                    carouselController: _carouselController,
+                  ),
+                ),
+                const SizedBox(),
+                Center(
+                  child: DotsIndicator(
+                    dotsCount: images.length,
+                    position: _currentIndex,
+                    decorator: const DotsDecorator(
+                      activeColor: Colors.green,
+                      // size: Size.square(8.0),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    //--------------------------- WEATHER REPORT ------------------------------
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: GestureDetector(
+                        onTap: () => {
+                          Navigator.pushNamed(context, '/weather'),
                         },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.green[400],
+                            boxShadow: const [
+                              BoxShadow(
+                                blurRadius: 4,
+                                color: Colors.grey,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.asset(
+                                  'assets/weather.jpg',
+                                  height: 130,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 13,
+                              ),
+                              const Text(
+                                "हवामान अहवाल",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      carouselController: _carouselController,
                     ),
-                  ),
-                  const SizedBox(),
-                  Center(
-                    child: DotsIndicator(
-                      dotsCount: images.length,
-                      position: _currentIndex,
-                      decorator: const DotsDecorator(
-                        activeColor: Colors.green,
-                        // size: Size.square(8.0),
+                    //----------------------------- CULTAVATION TIPS -----------------------------------
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: GestureDetector(
+                        onTap: () => {
+                          Navigator.pushNamed(context, '/cultivationtips'),
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.green[400],
+                            boxShadow: const [
+                              BoxShadow(
+                                blurRadius: 4,
+                                color: Colors.grey,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.asset(
+                                  'assets/tips.jpg',
+                                  height: 130,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 13,
+                              ),
+                              const Text(
+                                "लागवडीच्या टिप्स",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      //--------------------------- WEATHER REPORT ------------------------------
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: GestureDetector(
-                          onTap: () => {
-                            Navigator.pushNamed(context, '/weather'),
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.green[400],
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 4,
-                                  color: Colors.grey,
+                  ],
+                ),
+                //-------------------------- Disease Section ------------------------------
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: GestureDetector(
+                        onTap: () => {
+                          Navigator.pushNamed(context, '/cropdisease'),
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.green[400],
+                            boxShadow: const [
+                              BoxShadow(
+                                blurRadius: 4,
+                                color: Colors.grey,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.asset(
+                                  'assets/seeds.jpg',
+                                  height: 130,
                                 ),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Image.asset(
-                                    'assets/weather.jpg',
-                                    height: 130,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 13,
-                                ),
-                                const Text(
-                                  "हवामान अहवाल",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(
+                                height: 13,
+                              ),
+                              const Text(
+                                "रोग संबंधित माहिती",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      //----------------------------- CULTAVATION TIPS -----------------------------------
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: GestureDetector(
-                          onTap: () => {
-                            Navigator.pushNamed(context, '/cultivationtips'),
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.green[400],
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 4,
-                                  color: Colors.grey,
+                    ),
+                    //---------------------------------------Fertilizer Section-----------------------------------------
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: GestureDetector(
+                        onTap: () => {
+                          Navigator.pushNamed(context, '/fertilizer'),
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.green[400],
+                            boxShadow: const [
+                              BoxShadow(
+                                blurRadius: 4,
+                                color: Colors.grey,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.asset(
+                                  'assets/fertilizer.jpg',
+                                  height: 130,
                                 ),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Image.asset(
-                                    'assets/tips.jpg',
-                                    height: 130,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 13,
-                                ),
-                                const Text(
-                                  "लागवडीच्या टिप्स",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(
+                                height: 13,
+                              ),
+                              const Text(
+                                "खते माहिती",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                  //-------------------------- Disease Section ------------------------------
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: GestureDetector(
-                          onTap: () => {
-                            Navigator.pushNamed(context, '/cropdisease'),
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.green[400],
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 4,
-                                  color: Colors.grey,
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Image.asset(
-                                    'assets/seeds.jpg',
-                                    height: 130,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 13,
-                                ),
-                                const Text(
-                                  "रोग संबंधित माहिती",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      //---------------------------------------Fertilizer Section-----------------------------------------
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: GestureDetector(
-                          onTap: () => {
-                            Navigator.pushNamed(context, '/fertilizer'),
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.green[400],
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 4,
-                                  color: Colors.grey,
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Image.asset(
-                                    'assets/fertilizer.jpg',
-                                    height: 130,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 13,
-                                ),
-                                const Text(
-                                  "खते माहिती",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
-      );
-    }
+      ),
+    );
   }
 }

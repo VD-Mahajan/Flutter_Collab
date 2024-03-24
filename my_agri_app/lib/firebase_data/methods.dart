@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-String? name;
-dynamic data;
-
 fetchProfileData() async {
   final collectionReference =
       FirebaseFirestore.instance.collection('Personal info');
@@ -12,7 +9,7 @@ fetchProfileData() async {
   querySnapshot = await collectionReference
       .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
       .get();
-  data = querySnapshot.docs.map((doc) => doc.data()).toList();
+  return querySnapshot.docs.map((doc) => doc.data()).toList();
 }
 
 fetchData() async {
@@ -25,5 +22,5 @@ fetchData() async {
       .get();
   final data = await querySnapshot.docs.map((doc) => doc.data()).toList();
 
-  name = data[0]['Name'];
+  return data[0]['Name'];
 }

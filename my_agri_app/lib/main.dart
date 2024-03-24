@@ -25,8 +25,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await fetchData();
-  await fetchProfileData();
   runApp(const MainPage());
 }
 
