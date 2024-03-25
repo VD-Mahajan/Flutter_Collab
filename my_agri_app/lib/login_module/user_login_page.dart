@@ -4,10 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:my_agri_app/firebase_data/methods.dart';
 import 'package:my_agri_app/login_module/user_register.dart';
 import 'package:my_agri_app/main_app/bottomnavigationbar.dart';
-
 import 'verify_user.dart';
 
 // import 'Wrapper.dart';
@@ -52,8 +50,12 @@ class _LoginPageState extends State<LoginPage> {
           email: _emailController.text, password: _passwordController.text);
 
       if (FirebaseAuth.instance.currentUser!.emailVerified) {
-        await fetchData();
-        await fetchProfileData();
+        // String name = await fetchData();
+        // final data = await fetchProfileData();
+        // setState(() {
+        //   userName = name;
+        //   userData = data;
+        // });
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) {
@@ -236,6 +238,28 @@ class _LoginPageState extends State<LoginPage> {
                       validated = _formKey.currentState!.validate();
 
                       if (validated) {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return const AlertDialog(
+                                content: SizedBox(
+                                  height: 100,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      CircularProgressIndicator(),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text('Logging in, please wait..😊😘'),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
                         await signIn();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -245,37 +269,6 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         );
                       }
-
-                      // if (validated) {
-                      //   if (user == null) {
-                      //     // ignore: use_build_context_synchronously
-                      //     ScaffoldMessenger.of(context).showSnackBar(
-                      //       const SnackBar(
-                      //         content: Text("Invalid details"),
-                      //       ),
-                      //     );
-                      //   } else {
-                      //     ScaffoldMessenger.of(context).showSnackBar(
-                      //       const SnackBar(
-                      //         content: Text("Login Successful"),
-                      //         duration: Duration(seconds: 1),
-                      //       ),
-                      //     );
-                      //     Navigator.of(context).pushReplacement(
-                      //       MaterialPageRoute(
-                      //         builder: (context) =>
-                      //             const BottomNavBarWrapper(),
-                      //       ),
-                      //     );
-                      //   }
-                      // } else {
-                      //   // ignore: use_build_context_synchronously
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     const SnackBar(
-                      //       content: Text("Enter Credentials"),
-                      //     ),
-                      // );
-                      // }
                     },
                     child: const Text(
                       'Login',

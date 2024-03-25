@@ -5,9 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:my_agri_app/login_module/Wrapper.dart';
 import 'package:my_agri_app/login_module/user_login_page.dart';
-// import 'package:my_agri_app/main_app/home.dart';
+import 'package:sqflite/sqflite.dart';
 
-// import '../main_app/bottomnavigationbar.dart';
+import '../main.dart';
 
 class PersonalDetails extends StatefulWidget {
   const PersonalDetails({super.key});
@@ -57,14 +57,12 @@ class _PersonalDetailsState extends State<PersonalDetails> {
         'phoneNumber': phoneNumber,
         'email': FirebaseAuth.instance.currentUser!.email,
       });
-      // ignore: use_build_context_synchronously
-      // Navigator.pushNamed(context, '/homepage');
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const LoginPage(),
         ),
       );
-      // print('Data inserted successfully');
+      print('Data inserted successfully');
     } catch (e) {
       // print('Error adding data: $e');
     }

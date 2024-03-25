@@ -203,7 +203,7 @@ class _RegisterState extends State<Register> {
               height: 60,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   validated = _formKey.currentState!.validate();
 
                   if (flag) {
@@ -239,10 +239,8 @@ class _RegisterState extends State<Register> {
                             ),
                           );
                         });
-                    setState(() {
-                      registerUser(_emailController.text.toString(),
-                          _passwordController.text.toString());
-                    });
+                    await registerUser(_emailController.text.toString(),
+                        _passwordController.text.toString());
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

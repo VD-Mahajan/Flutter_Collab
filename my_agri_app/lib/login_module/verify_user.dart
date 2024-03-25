@@ -33,7 +33,7 @@ class _VerifyUserState extends State<VerifyUser> {
       body: Center(
         child: Container(
           width: MediaQuery.of(context).size.width * 0.8,
-          height: MediaQuery.of(context).size.height * 0.5,
+          height: 450,
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(),
@@ -76,7 +76,7 @@ class _VerifyUserState extends State<VerifyUser> {
                       child: Text(
                         'Verification mail sent, please check your gmail.',
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: 15, fontWeight: FontWeight.bold),
                       ),
                     ),
               ElevatedButton(

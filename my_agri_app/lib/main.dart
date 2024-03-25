@@ -13,18 +13,15 @@ import 'package:my_agri_app/homepage/weather_report.dart';
 import 'package:my_agri_app/main_app/marketplace.dart';
 import 'package:my_agri_app/personal_details/personal_details.dart';
 import 'package:my_agri_app/splash_screen.dart';
-
-import 'firebase_data/methods.dart';
 import 'homepage/crop_disease.dart';
 import 'login_module/admin_login.dart';
-
-// import 'main_app/bottomnavigationbar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const MainPage());
 }
 

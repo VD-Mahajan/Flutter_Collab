@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../firebase_data/methods.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -31,10 +30,21 @@ class _ProfileState extends State {
     await FirebaseAuth.instance.signOut();
   }
 
+  fetchProfileData() async {
+    final collectionReference =
+        FirebaseFirestore.instance.collection('Personal info');
+    final QuerySnapshot<Map<String, dynamic>> querySnapshot;
+
+    querySnapshot = await collectionReference
+        .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
+        .get();
+    return querySnapshot.docs.map((doc) => doc.data()).toList();
+  }
+
   fetchData() async {
-    final temp = await fetchProfileData();
+    final data = await fetchProfileData();
     setState(() {
-      userData = temp;
+      userData = data;
       _nameController.text = userData[0]['Name'].toString();
       _numberController.text = userData[0]['phoneNumber'].toString();
       _addressController.text = userData[0]['Address'].toString();
@@ -57,7 +67,6 @@ class _ProfileState extends State {
   @override
   void initState() {
     super.initState();
-
     fetchData();
 
     name = _nameController.text;
