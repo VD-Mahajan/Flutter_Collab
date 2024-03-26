@@ -1,13 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-// import 'package:my_agri_app/login_module/Wrapper.dart';
 import 'package:my_agri_app/login_module/user_login_page.dart';
-import 'package:sqflite/sqflite.dart';
-
-import '../main.dart';
 
 class PersonalDetails extends StatefulWidget {
   const PersonalDetails({super.key});
