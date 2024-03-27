@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:my_agri_app/dependency_injection.dart';
 import 'package:my_agri_app/firebase_options.dart';
 // import 'package:my_agri_app/select_type.dart';
 // import 'package:my_agri_app/login_module/Wrapper.dart';
@@ -23,6 +25,7 @@ void main() async {
   );
 
   runApp(const MainPage());
+  // DependencyInjection.init();
 }
 
 class MainPage extends StatelessWidget {
@@ -34,7 +37,6 @@ class MainPage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        // '/':(context)=>const CropDisease(),
         '/': (context) => const SplashScreen(),
         // '/': (context) => const HomePage(),
         '/profile': (context) => const PersonalDetails(),

@@ -254,7 +254,7 @@ class _LoginPageState extends State<LoginPage> {
                                       SizedBox(
                                         height: 5,
                                       ),
-                                      Text('Logging in, please wait..😊😘'),
+                                      Text('Logging in, please wait..'),
                                     ],
                                   ),
                                 ),
